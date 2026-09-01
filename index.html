@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Guille Magic | Agenda</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         HEADER
+         ========================================== -->
+
+    <header class="header">
+
+        <div class="header-content">
+
+            <div class="logo">
+
+                <span class="logo-icon">
+                    ✨
+                </span>
+
+                <span>
+                    Guille Magic | Agenda
+                </span>
+
+            </div>
+
+
+            <nav class="navigation">
+
+                <button
+                    id="calendarNavButton"
+                    class="nav-button active"
+                    type="button"
+                >
+                    📅 Calendario
+                </button>
+
+                <button
+                    id="settingsNavButton"
+                    class="nav-button"
+                    type="button"
+                >
+                    ⚙️ Configuración
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================
+         VISTA CALENDARIO
+         ========================================== -->
+
+    <main
+        id="calendarView"
+        class="main-container"
+    >
+
+        <!-- NAVEGACIÓN MES -->
+
+        <div class="calendar-navigation">
+
+            <button
+                id="previousMonth"
+                class="month-navigation-button"
+                type="button"
+            >
+                ‹
+            </button>
+
+
+            <div class="current-month-container">
+
+                <h1
+                    id="currentMonthTitle"
+                >
+                    Enero 2026
+                </h1>
+
+
+                <button
+                    id="todayButton"
+                    class="today-button"
+                    type="button"
+                >
+                    Hoy
+                </button>
+
+            </div>
+
+
+            <button
+                id="nextMonth"
+                class="month-navigation-button"
+                type="button"
+            >
+                ›
+            </button>
+
+        </div>
+
+
+        <!-- SELECTOR AÑO -->
+
+        <div class="year-container">
+
+            <label for="yearSelect">
+                Año
+            </label>
+
+            <select
+                id="yearSelect"
+            ></select>
+
+        </div>
+
+
+        <!-- CALENDARIO -->
+
+        <div
+            id="calendar"
+            class="calendar"
+        ></div>
+
+    </main>
+
+
+    <!-- ==========================================
+         VISTA CONFIGURACIÓN
+         ========================================== -->
+
+    <main
+        id="settingsView"
+        class="settings-container"
+    >
+
+        <div class="settings-card">
+
+            <div class="settings-header">
+
+                <div>
+
+                    <h1>
+                        Configuración
+                    </h1>
+
+                    <p>
+                        Configura las tarifas que utilizará
+                        la aplicación para calcular los presupuestos.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form id="settingsForm">
+
+
+                <div class="setting-item">
+
+                    <div class="setting-description">
+
+                        <strong>
+                            Precio base
+                        </strong>
+
+                        <span>
+                            Importe inicial de cualquier evento.
+                        </span>
+
+                    </div>
+
+
+                    <div class="setting-input">
+
+                        <input
+                            type="number"
+                            id="settingBase"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                        <span>
+                            €
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-description">
+
+                        <strong>
+                            Precio por kilómetro
+                        </strong>
+
+                        <span>
+                            Importe que se cobra por cada kilómetro.
+                        </span>
+
+                    </div>
+
+
+                    <div class="setting-input">
+
+                        <input
+                            type="number"
+                            id="settingKm"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                        <span>
+                            €/km
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-description">
+
+                        <strong>
+                            Precio por persona
+                        </strong>
+
+                        <span>
+                            Importe adicional por cada persona.
+                        </span>
+
+                    </div>
+
+
+                    <div class="setting-input">
+
+                        <input
+                            type="number"
+                            id="settingPerson"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                        <span>
+                            €/persona
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-description">
+
+                        <strong>
+                            Precio por hora
+                        </strong>
+
+                        <span>
+                            Importe adicional por cada hora de duración.
+                        </span>
+
+                    </div>
+
+
+                    <div class="setting-input">
+
+                        <input
+                            type="number"
+                            id="settingHour"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                        <span>
+                            €/hora
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-description">
+
+                        <strong>
+                            Cobrar por duración
+                        </strong>
+
+                        <span>
+                            Si se activa, la duración del evento
+                            influirá en el precio.
+                        </span>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="settingChargeHour"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="settings-example">
+
+                    <strong>
+                        Fórmula del presupuesto
+                    </strong>
+
+                    <p>
+                        Precio base +
+                        (KM × precio/km) +
+                        (personas × precio/persona) +
+                        (horas × precio/hora)
+                    </p>
+
+                    <small>
+                        El componente de horas solo se aplicará
+                        si activas "Cobrar por duración".
+                    </small>
+
+                </div>
+
+
+                <div class="settings-actions">
+
+                    <button
+                        type="submit"
+                        class="button primary"
+                    >
+                        Guardar configuración
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div
+                id="settingsMessage"
+                class="settings-message"
+            ></div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ==========================================
+         MODAL
+         ========================================== -->
+
+    <div
+        id="eventModal"
+        class="modal"
+    >
+
+        <div class="modal-content">
+
+            <div id="modalContent"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SUPABASE
+         ========================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- ==========================================
+         APP
+         ========================================== -->
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
