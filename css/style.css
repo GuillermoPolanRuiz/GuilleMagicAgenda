@@ -1601,3 +1601,105 @@ body {
     }
 
 }
+/* ==========================================
+   LOGIN
+   ========================================== */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #f4f5f7;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 430px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+}
+
+.login-logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-logo-image {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.login-logo h1 {
+    font-size: 28px;
+    color: #111827;
+    margin-bottom: 5px;
+}
+
+.login-logo p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.login-form .form-group {
+    margin-bottom: 18px;
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.login-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.login-message {
+    min-height: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.login-message.error {
+    color: #b91c1c;
+}
+
+.login-message.success {
+    color: #166534;
+}
+
+.logout-button {
+    color: #fca5a5;
+}
+
+.logout-button:hover {
+    color: white;
+    background: #7f1d1d;
+}
+
+@media (max-width: 500px) {
+
+    .login-page {
+        padding: 15px;
+    }
+
+    .login-card {
+        padding: 25px 20px;
+    }
+
+    .login-logo h1 {
+        font-size: 24px;
+    }
+
+}

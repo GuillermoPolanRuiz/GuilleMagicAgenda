@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Guille Magic | Iniciar sesión</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="img/icon.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+<body class="login-page">
+
+    <main class="login-container">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                <img
+                    src="img/icon.png"
+                    alt="Guille Magic"
+                    class="login-logo-image"
+                >
+
+                <h1>Guille Magic</h1>
+
+                <p>Gestión de eventos</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+
+                <div class="form-group">
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        autocomplete="email"
+                        placeholder="tu@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        Contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        autocomplete="current-password"
+                        placeholder="Tu contraseña"
+                        required
+                    >
+                </div>
+
+                <div
+                    id="loginMessage"
+                    class="login-message"
+                ></div>
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="button primary login-button"
+                >
+                    Iniciar sesión
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://gthgbolswxesdabbtlzd.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_lonFSwx-LGubgGqcltVMqA_zKSgXu_S";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const loginMessage =
+            document.getElementById("loginMessage");
+
+
+        async function checkExistingSession() {
+
+            const {
+                data: { session }
+            } = await supabaseClient.auth.getSession();
+
+            if (session) {
+                window.location.href = "index.html";
+            }
+        }
+
+
+        loginForm.addEventListener(
+            "submit",
+            async event => {
+
+                event.preventDefault();
+
+                loginMessage.textContent = "";
+                loginMessage.className = "login-message";
+
+                loginButton.disabled = true;
+                loginButton.textContent = "Entrando...";
+
+                const email =
+                    document.getElementById("email").value.trim();
+
+                const password =
+                    document.getElementById("password").value;
+
+                const {
+                    error
+                } = await supabaseClient.auth.signInWithPassword({
+                    email,
+                    password
+                });
+
+                if (error) {
+
+                    loginMessage.textContent =
+                        "Email o contraseña incorrectos.";
+
+                    loginMessage.classList.add("error");
+
+                    loginButton.disabled = false;
+                    loginButton.textContent = "Iniciar sesión";
+
+                    return;
+                }
+
+                loginMessage.textContent =
+                    "✓ Acceso correcto. Entrando...";
+
+                loginMessage.classList.add("success");
+
+                window.location.href = "index.html";
+
+            }
+        );
+
+
+        checkExistingSession();
+
+    </script>
+
+</body>
+</html>

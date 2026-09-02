@@ -88,6 +88,11 @@ const settingsMessage =
         "settingsMessage"
     );
 
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
 
 // ==========================================
 // FECHA ACTUAL
@@ -174,10 +179,91 @@ const weekdays = [
 
 
 // ==========================================
+// AUTENTICACIÓN
+// ==========================================
+
+async function checkAuth() {
+
+    const {
+        data: { session },
+        error
+    } = await supabaseClient.auth.getSession();
+
+
+    if (
+        error ||
+        !session
+    ) {
+
+        window.location.href =
+            "login.html";
+
+        return null;
+
+    }
+
+
+    return session;
+
+}
+
+
+// Si la sesión se cierra o expira en cualquier momento
+// (por ejemplo desde otra pestaña), sacamos al usuario.
+
+supabaseClient.auth.onAuthStateChange(
+    (event, session) => {
+
+        if (
+            event === "SIGNED_OUT" ||
+            !session
+        ) {
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    }
+);
+
+
+async function logout() {
+
+    logoutButton.disabled = true;
+
+
+    await supabaseClient.auth.signOut();
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// ==========================================
 // INICIALIZACIÓN
 // ==========================================
 
 async function init() {
+
+    const session =
+        await checkAuth();
+
+
+    if (!session) {
+
+        return;
+
+    }
+
+
+    logoutButton.addEventListener(
+        "click",
+        logout
+    );
+
 
     createYearSelector();
 
